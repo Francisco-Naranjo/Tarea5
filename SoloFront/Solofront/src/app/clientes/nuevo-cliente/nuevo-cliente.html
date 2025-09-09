@@ -1,0 +1,158 @@
+<!-- 
+  nombres: string;
+  direccion: string;
+  telefono: string;
+  email: string;
+  cedula_ruc: string;
+-->
+<div class="container">
+  <h1>{{ titulo_formulario }}</h1>
+  <form [formGroup]="clienteforms" (ngSubmit)="guardarCliente()" novalidate>
+    <div class="form-group mb-3">
+      <label for="nombres">Nombres</label>
+      <input
+        formControlName="nombres"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="clienteforms.get('nombres')?.touched && clienteforms.get('nombres')?.invalid"
+        id="nombres"
+        placeholder="Nombres (mínimo 10 caracteres)"
+      />
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="clienteforms.get('nombres')?.touched && clienteforms.get('nombres')?.invalid"
+      >
+        <div *ngIf="clienteforms.get('nombres')?.errors?.['required']">
+          El nombre es requerido.
+        </div>
+        <div *ngIf="clienteforms.get('nombres')?.errors?.['minlength']">
+          El nombre debe tener al menos 10 caracteres.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="cedula_ruc">Cedula/Ruc</label>
+      <input
+        formControlName="cedula_ruc"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="clienteforms.get('cedula_ruc')?.touched && clienteforms.get('cedula_ruc')?.invalid"
+        id="cedula_ruc"
+        placeholder="Cedula/Ruc (mínimo 10 caracteres)"
+      />
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="clienteforms.get('cedula_ruc')?.touched && clienteforms.get('cedula_ruc')?.invalid"
+      >
+        <div *ngIf="clienteforms.get('cedula_ruc')?.errors?.['required']">
+          La cédula/RUC es requerida.
+        </div>
+        <div *ngIf="clienteforms.get('cedula_ruc')?.errors?.['minlength']">
+          La cédula/RUC debe tener al menos 10 caracteres.
+        </div>
+      </div>
+      <p class="help-block text-muted">Ingrese la Cedula o Ruc del Cliente</p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="email">Email</label>
+      <input
+        formControlName="email"
+        type="email"
+        class="form-control"
+        [class.is-invalid]="clienteforms.get('email')?.touched && clienteforms.get('email')?.invalid"
+        id="email"
+        placeholder="correo@ejemplo.com"
+      />
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="clienteforms.get('email')?.touched && clienteforms.get('email')?.invalid"
+      >
+        <div *ngIf="clienteforms.get('email')?.errors?.['required']">
+          El email es requerido.
+        </div>
+        <div *ngIf="clienteforms.get('email')?.errors?.['email']">
+          Ingrese un email válido.
+        </div>
+      </div>
+      <p class="help-block text-muted">Ingrese su Correo Electronico</p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="telefono">Teléfono</label>
+      <input
+        formControlName="telefono"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="clienteforms.get('telefono')?.touched && clienteforms.get('telefono')?.invalid"
+        id="telefono"
+        placeholder="Teléfono (mínimo 7 caracteres)"
+      />
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="clienteforms.get('telefono')?.touched && clienteforms.get('telefono')?.invalid"
+      >
+        <div *ngIf="clienteforms.get('telefono')?.errors?.['required']">
+          El teléfono es requerido.
+        </div>
+        <div *ngIf="clienteforms.get('telefono')?.errors?.['minlength']">
+          El teléfono debe tener al menos 7 caracteres.
+        </div>
+      </div>
+      <p class="help-block text-muted">Ingrese el teléfono del cliente</p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="direccion">Direccion</label>
+      <input
+        formControlName="direccion"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="clienteforms.get('direccion')?.touched && clienteforms.get('direccion')?.invalid"
+        id="direccion"
+        placeholder="Direccion (mínimo 10 caracteres)"
+      />
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="clienteforms.get('direccion')?.touched && clienteforms.get('direccion')?.invalid"
+      >
+        <div *ngIf="clienteforms.get('direccion')?.errors?.['required']">
+          La dirección es requerida.
+        </div>
+        <div *ngIf="clienteforms.get('direccion')?.errors?.['minlength']">
+          La dirección debe tener al menos 10 caracteres.
+        </div>
+      </div>
+      <p class="help-block text-muted">Ingrese su direccion</p>
+    </div>
+
+    <!-- Debug info - Remover en producción -->
+    <div class="alert alert-info" *ngIf="!clienteforms.valid">
+      <small>
+        <strong>Estado del formulario:</strong><br>
+        Válido: {{ clienteforms.valid }}<br>
+        <span *ngFor="let control of getFormControlNames()">
+          {{ control }}: {{ clienteforms.get(control)?.valid ? '✓' : '✗' }} 
+          <span *ngIf="!clienteforms.get(control)?.valid">
+            ({{ getErrorMessages(control) }})
+          </span><br>
+        </span>
+      </small>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!clienteforms.valid"
+      >
+        Guardar
+      </button>
+
+      <button type="button" class="btn btn-secondary" routerLink="/">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
